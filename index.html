@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background: url(assets/space.jpg);
+            margin: 0;
+            min-height: 100vh;
+            background-repeat: no-repeat;
+            background-position: left center;
+            background-size: cover;
+            min-width: 340px;
+        }
+
+        html {
+            font-size: calc(4vw + 4vh + 2vmin);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .cat {
+            position: relative;
+            width: 50%;
+            min-width: 340px;
+            margin: auto;
+            max-width: 450px;
+            animation: cat-animation 2s infinite ease-in-out, cat-animation-2 0.2s infinite ease-in-out;
+        }
+
+        .cat-body {
+            width: 100%;
+        }
+
+
+        .vr {
+            position: absolute;
+            width: 26%;
+            transform: rotate(7deg);
+            left: 54%;
+            top: -3%;
+        }
+
+        .ak-47 {
+            position: absolute;
+            width: 15%;
+            left: 48%;
+            top: 17%;
+            transform: rotate(106deg);
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            font-size: 0.5rem;
+            margin: 20px 20px 30px;
+        }
+
+        .birthdate {
+            display: inline-block;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            margin: 15px 0;
+            color: #ffd800;
+            animation: color-animation 2s infinite ease-in;
+        }
+
+        @keyframes color-animation {
+            from {
+                color: #ffd800;
+            }
+            50% {
+                color: #00e6ff;
+            }
+            to {
+                color: #ffd800;
+            }
+        }
+
+        @keyframes cat-animation {
+            from {
+                transform: rotate(75deg);
+                left: -100px;
+            }
+            50% {
+                transform: rotate(-45deg);
+                left: 50px;
+            }
+            100% {
+                transform: rotate(75deg);
+                left: -100px;
+            }
+        }
+
+        @keyframes cat-animation-2 {
+            from {
+                top: 5px;
+            }
+            50% {
+                top: -5px;
+
+            }
+            100% {
+                top: 5px;
+            }
+        }
+
+        a {
+            color: #ffd800;
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        .bullet {
+            position: fixed;
+            width: 20px;
+            height: 8px;
+            border-bottom-left-radius: 50%;
+            border-top-left-radius: 50%;
+
+            background: brown;
+            margin-left: -20px;
+            animation: bullet-animation 2s ease-in;
+        }
+
+        @keyframes bullet-animation {
+            from {
+                margin-top: 0;
+            }
+            100% {
+                margin-top: 2000px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="cat">
+    <img alt="" class="cat-body" src="assets/cat.png">
+    <img alt="" class="vr" src="assets/hat1.png">
+    <img alt="" class="ak-47" src="assets/beer.png">
+</div>
+
+<h1>
+    Дорогой друг
+    <br>
+    Приглашаю тебя на свой
+    <br>
+    <span class="birthdate">день рождения!</span>
+    <br>
+    <span class="date">9 декабря (пятница)</span>
+    <br>
+    <span class="time">в 20:00</span>
+    <br>
+    <span>в
+        <a href="https://yandex.by/maps/-/CCUjZOGR~D" target="_blank">Clever Irish Pub</a>
+    </span>
+    <br>
+    ул. Гикало 5, Минск 220089
+</h1>
+
+<div class="bullet-area"></div>
+
+<script>
+    const ak47 = document.querySelector('.ak-47')
+    const bulletArea = document.querySelector('.bullet-area')
+
+    setInterval(() => {
+        const rect = ak47.getBoundingClientRect()
+        const degree = ((Math.atan2(rect.top - rect.bottom, rect.left - rect.right) + 2 * Math.PI) * 180 / Math.PI) % 360
+        const bullet = document.createElement('div');
+        bullet.classList.add('bullet')
+        bullet.style.left = rect.right + 'px';
+        bullet.style.top = rect.bottom + 'px';
+        bullet.style.transform = `rotate(${degree + 20}deg)`;
+        // bullet.style.background = '#' + ((1 << 24) * Math.random() | 0).toString(16);
+        bulletArea.appendChild(bullet);
+        setTimeout(() => bullet.remove(), 2000);
+    }, 37)
+
+</script>
+</body>
+</html>
